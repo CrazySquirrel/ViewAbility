@@ -2,15 +2,13 @@
 /**
  * Import sub interfaces
  */
-import IAnimationFrame from "./IAnimationFrame";
-import IDebug from "./IDebug";
 import IViewAbility from "./IViewAbility";
 /**
  * The storage interface
  */
 interface IWindow {
+    console: any;
     document: any;
-    Utils: any;
 
     eventListenerAdded: boolean;
 
@@ -19,21 +17,12 @@ interface IWindow {
     pageXOffset: number;
     pageYOffset: number;
 
-    requestAnimationFrame: Function;
-    webkitRequestAnimationFrame: Function;
-    mozRequestAnimationFrame: Function;
-    oRequestAnimationFrame: Function;
-    msRequestAnimationFrame: Function;
     addEventListener: Function;
     attachEvent: Function;
     getComputedStyle: Function;
     onerror: Function;
 
-    AnimationFrame: IAnimationFrame;
-    Debug: IDebug;
     ViewAbility: IViewAbility;
-
-    setTimeout(callback: Function, time: number): number;
 }
 /**
  * Declare window interface

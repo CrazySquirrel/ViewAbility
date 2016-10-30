@@ -1,4 +1,9 @@
 # ViewAbility
+[![npm version](https://badge.fury.io/js/ViewAbility.svg)](https://github.com/CrazySquirrel/ViewAbility)
+[![license](https://img.shields.io/github/license/CrazySquirrel/ViewAbility.svg)](https://github.com/CrazySquirrel/ViewAbility)
+[![Github All Releases](https://img.shields.io/github/downloads/CrazySquirrel/ViewAbility/total.svg)](https://github.com/CrazySquirrel/ViewAbility)
+[![npm version](https://img.shields.io/badge/donate-%E2%99%A5-red.svg)](http://crazysquirrel.ru/support/)
+
 Class to determine the visibility of the block.
 
 ## Build

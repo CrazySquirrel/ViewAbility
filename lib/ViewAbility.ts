@@ -7,7 +7,7 @@ import IWindow from "../interfaces/IWindow";
  * Declare window interface
  */
 declare var window: IWindow;
-
+declare var module: any;
 /**
  * Import interface
  */
@@ -16,9 +16,9 @@ import IViewAbility from "../interfaces/IViewAbility";
 /**
  * Import Animation frame
  */
-import AnimationFrame from "../vendors/AnimationFrame";
-
-import Utils from "../vendors/Utils";
+declare var require: any;
+let AnimationFrame = require("AnimationFrame");
+let Utils = require("Utils");
 
 /**
  * @class
@@ -474,7 +474,13 @@ export default class ViewAbility implements IViewAbility {
                     typeof(funCallBack) !== "function"
                 ) {
                     funCallBack = (ID) => {
-                        window.Debug.info("Banner was seen ID " + this.ID);
+                        if (
+                            typeof window !== "undefined" &&
+                            typeof console === "object" &&
+                            typeof console.info === "function"
+                        ) {
+                            window.console.info("Banner was seen ID " + this.ID);
+                        }
                     };
                 }
                 /**
@@ -484,7 +490,13 @@ export default class ViewAbility implements IViewAbility {
                 this.objSetting = objSetting;
                 this.funCallBack = funCallBack;
                 this.booTimerFlag = false;
-                window.Debug.info("Viewer watching init for ID " + this.ID);
+                if (
+                    typeof window !== "undefined" &&
+                    typeof console === "object" &&
+                    typeof console.info === "function"
+                ) {
+                    window.console.info("Viewer watching init for ID " + this.ID);
+                }
                 this.watchID = AnimationFrame.subscribe(this, this.watch, []);
             }
         }
@@ -515,15 +527,25 @@ export default class ViewAbility implements IViewAbility {
                      * Если флаг отсчета был выключен, то сбрасываем таймер
                      */
                     if (this.booTimerFlag === false) {
-                        window.Debug.info("Viewer watching timer start for ID " + this.ID);
-
+                        if (
+                            typeof window !== "undefined" &&
+                            typeof console === "object" &&
+                            typeof console.info === "function"
+                        ) {
+                            window.console.info("Viewer watching timer start for ID " + this.ID);
+                        }
                         this.numTimerFrom = Date.now();
                     }
                     this.booTimerFlag = true;
                 } else {
                     if (this.booTimerFlag === true) {
-                        window.Debug.info("Viewer watching timer stop for ID " + this.ID);
-
+                        if (
+                            typeof window !== "undefined" &&
+                            typeof console === "object" &&
+                            typeof console.info === "function"
+                        ) {
+                            window.console.info("Viewer watching timer stop for ID " + this.ID);
+                        }
                     }
                     this.booTimerFlag = false;
                 }
@@ -547,16 +569,34 @@ export default class ViewAbility implements IViewAbility {
                  * Если банер был виден достаточно долго, то вызываем callback, иначе продолжаем смотреть
                  */
                 if (booCallCallback) {
-                    window.Debug.info("Viewer watching timer stop for ID " + this.ID);
-                    window.Debug.info("Viewer end watching ID " + this.ID);
+                    if (
+                        typeof window !== "undefined" &&
+                        typeof console === "object" &&
+                        typeof console.info === "function"
+                    ) {
+                        window.console.info("Viewer watching timer stop for ID " + this.ID);
+                        window.console.info("Viewer end watching ID " + this.ID);
+                    }
                     AnimationFrame.unsubscribe(this.watchID);
                     this.funCallBack(this.ID);
                 }
             } else {
                 if (this.booTimerFlag) {
-                    window.Debug.info("Viewer watching timer stop for ID " + this.ID);
+                    if (
+                        typeof window !== "undefined" &&
+                        typeof console === "object" &&
+                        typeof console.info === "function"
+                    ) {
+                        window.console.info("Viewer watching timer stop for ID " + this.ID);
+                    }
                 }
-                window.Debug.info("Viewer end watching ID " + this.ID);
+                if (
+                    typeof window !== "undefined" &&
+                    typeof console === "object" &&
+                    typeof console.info === "function"
+                ) {
+                    window.console.info("Viewer end watching ID " + this.ID);
+                }
                 AnimationFrame.unsubscribe(this.watchID);
             }
         } else if (this.ID) {
@@ -567,4 +607,4 @@ export default class ViewAbility implements IViewAbility {
 /**
  * Export ViewAbility
  */
-window.ViewAbility = ViewAbility;
+module.exports = ViewAbility;

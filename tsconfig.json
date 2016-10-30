@@ -5,7 +5,7 @@
     "inlineSourceMap": true
   },
   "files": [
-
+    "./lib/ViewAbility.ts"
   ],
   "exclude": [
     "node_modules",
