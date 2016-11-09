@@ -6,8 +6,8 @@ import IWindow from "../interfaces/IWindow";
 /**
  * Declare window interface
  */
-declare var window: IWindow;
-declare var module: any;
+declare var window:IWindow;
+declare var module:any;
 /**
  * Import interface
  */
@@ -16,7 +16,7 @@ import IViewAbility from "../interfaces/IViewAbility";
 /**
  * Import Animation frame
  */
-declare var require: any;
+declare var require:any;
 let AnimationFrame = require("AnimationFrame");
 let Utils = require("Utils");
 
@@ -53,11 +53,11 @@ let Utils = require("Utils");
  */
 export default class ViewAbility implements IViewAbility {
 
-    public static numDocumentWidth: number|boolean;
-    public static numDocumentHeight: number|boolean;
-    public static numWindowWidth: number|boolean;
-    public static numWindowHeight: number|boolean;
-    public static arrDomStyle: Object;
+    public static numDocumentWidth:number|boolean;
+    public static numDocumentHeight:number|boolean;
+    public static numWindowWidth:number|boolean;
+    public static numWindowHeight:number|boolean;
+    public static arrDomStyle:Object;
 
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
@@ -374,13 +374,13 @@ export default class ViewAbility implements IViewAbility {
         return numVisibility;
     };
 
-    public ID: string;
-    public domElement: any;
-    public objSetting: any;
-    public funCallBack: Function;
-    public booTimerFlag: boolean;
-    public watchID: any;
-    public numTimerFrom: any;
+    public ID:string;
+    public domElement:any;
+    public objSetting:any;
+    public funCallBack:Function;
+    public booTimerFlag:boolean;
+    public watchID:any;
+    public numTimerFrom:any;
 
     constructor(domElement, objSetting, funCallBack) {
         /**
@@ -501,7 +501,7 @@ export default class ViewAbility implements IViewAbility {
             }
         }
 
-        Utils.implementationStaticMethods(this);
+        Utils.implementationStaticMethods(this, "ViewAbility");
     }
 
     /**
