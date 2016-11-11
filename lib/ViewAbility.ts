@@ -474,6 +474,7 @@ export default class ViewAbility implements IViewAbility {
                     typeof(funCallBack) !== "function"
                 ) {
                     funCallBack = (ID) => {
+                        /*
                         if (
                             typeof window !== "undefined" &&
                             typeof console === "object" &&
@@ -481,6 +482,7 @@ export default class ViewAbility implements IViewAbility {
                         ) {
                             window.console.info("Banner was seen ID " + this.ID);
                         }
+                        */
                     };
                 }
                 /**
@@ -490,6 +492,7 @@ export default class ViewAbility implements IViewAbility {
                 this.objSetting = objSetting;
                 this.funCallBack = funCallBack;
                 this.booTimerFlag = false;
+                /*
                 if (
                     typeof window !== "undefined" &&
                     typeof console === "object" &&
@@ -497,6 +500,7 @@ export default class ViewAbility implements IViewAbility {
                 ) {
                     window.console.info("Viewer watching init for ID " + this.ID);
                 }
+                */
                 this.watchID = AnimationFrame.subscribe(this, this.watch, []);
             }
         }
@@ -527,6 +531,7 @@ export default class ViewAbility implements IViewAbility {
                      * Если флаг отсчета был выключен, то сбрасываем таймер
                      */
                     if (this.booTimerFlag === false) {
+                        /*
                         if (
                             typeof window !== "undefined" &&
                             typeof console === "object" &&
@@ -534,11 +539,13 @@ export default class ViewAbility implements IViewAbility {
                         ) {
                             window.console.info("Viewer watching timer start for ID " + this.ID);
                         }
+                        */
                         this.numTimerFrom = Date.now();
                     }
                     this.booTimerFlag = true;
                 } else {
                     if (this.booTimerFlag === true) {
+                        /*
                         if (
                             typeof window !== "undefined" &&
                             typeof console === "object" &&
@@ -546,6 +553,7 @@ export default class ViewAbility implements IViewAbility {
                         ) {
                             window.console.info("Viewer watching timer stop for ID " + this.ID);
                         }
+                        */
                     }
                     this.booTimerFlag = false;
                 }
@@ -569,6 +577,7 @@ export default class ViewAbility implements IViewAbility {
                  * Если банер был виден достаточно долго, то вызываем callback, иначе продолжаем смотреть
                  */
                 if (booCallCallback) {
+                    /*
                     if (
                         typeof window !== "undefined" &&
                         typeof console === "object" &&
@@ -577,10 +586,12 @@ export default class ViewAbility implements IViewAbility {
                         window.console.info("Viewer watching timer stop for ID " + this.ID);
                         window.console.info("Viewer end watching ID " + this.ID);
                     }
+                    */
                     AnimationFrame.unsubscribe(this.watchID);
                     this.funCallBack(this.ID);
                 }
             } else {
+                /*
                 if (this.booTimerFlag) {
                     if (
                         typeof window !== "undefined" &&
@@ -597,6 +608,7 @@ export default class ViewAbility implements IViewAbility {
                 ) {
                     window.console.info("Viewer end watching ID " + this.ID);
                 }
+                */
                 AnimationFrame.unsubscribe(this.watchID);
             }
         } else if (this.ID) {
