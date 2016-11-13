@@ -6,8 +6,8 @@ import IWindow from "../interfaces/IWindow";
 /**
  * Declare window interface
  */
-declare var window:IWindow;
-declare var module:any;
+declare var window: IWindow;
+declare var module: any;
 /**
  * Import interface
  */
@@ -16,9 +16,9 @@ import IViewAbility from "../interfaces/IViewAbility";
 /**
  * Import Animation frame
  */
-declare var require:any;
-let AnimationFrame = require("AnimationFrame");
-let Utils = require("Utils");
+declare var require: any;
+import AnimationFrame from "AnimationFrame";
+import Utils from "Utils";
 
 /**
  * @class
@@ -53,11 +53,11 @@ let Utils = require("Utils");
  */
 export default class ViewAbility implements IViewAbility {
 
-    public static numDocumentWidth:number|boolean;
-    public static numDocumentHeight:number|boolean;
-    public static numWindowWidth:number|boolean;
-    public static numWindowHeight:number|boolean;
-    public static arrDomStyle:Object;
+    public static numDocumentWidth: number|boolean;
+    public static numDocumentHeight: number|boolean;
+    public static numWindowWidth: number|boolean;
+    public static numWindowHeight: number|boolean;
+    public static arrDomStyle: Object;
 
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
@@ -374,13 +374,13 @@ export default class ViewAbility implements IViewAbility {
         return numVisibility;
     };
 
-    public ID:string;
-    public domElement:any;
-    public objSetting:any;
-    public funCallBack:Function;
-    public booTimerFlag:boolean;
-    public watchID:any;
-    public numTimerFrom:any;
+    public ID: string;
+    public domElement: any;
+    public objSetting: any;
+    public funCallBack: Function;
+    public booTimerFlag: boolean;
+    public watchID: any;
+    public numTimerFrom: any;
 
     constructor(domElement, objSetting, funCallBack) {
         /**
@@ -475,14 +475,14 @@ export default class ViewAbility implements IViewAbility {
                 ) {
                     funCallBack = (ID) => {
                         /*
-                        if (
-                            typeof window !== "undefined" &&
-                            typeof console === "object" &&
-                            typeof console.info === "function"
-                        ) {
-                            window.console.info("Banner was seen ID " + this.ID);
-                        }
-                        */
+                         if (
+                         typeof window !== "undefined" &&
+                         typeof console === "object" &&
+                         typeof console.info === "function"
+                         ) {
+                         window.console.info("Banner was seen ID " + this.ID);
+                         }
+                         */
                     };
                 }
                 /**
@@ -493,14 +493,14 @@ export default class ViewAbility implements IViewAbility {
                 this.funCallBack = funCallBack;
                 this.booTimerFlag = false;
                 /*
-                if (
-                    typeof window !== "undefined" &&
-                    typeof console === "object" &&
-                    typeof console.info === "function"
-                ) {
-                    window.console.info("Viewer watching init for ID " + this.ID);
-                }
-                */
+                 if (
+                 typeof window !== "undefined" &&
+                 typeof console === "object" &&
+                 typeof console.info === "function"
+                 ) {
+                 window.console.info("Viewer watching init for ID " + this.ID);
+                 }
+                 */
                 this.watchID = AnimationFrame.subscribe(this, this.watch, []);
             }
         }
@@ -532,28 +532,28 @@ export default class ViewAbility implements IViewAbility {
                      */
                     if (this.booTimerFlag === false) {
                         /*
-                        if (
-                            typeof window !== "undefined" &&
-                            typeof console === "object" &&
-                            typeof console.info === "function"
-                        ) {
-                            window.console.info("Viewer watching timer start for ID " + this.ID);
-                        }
-                        */
+                         if (
+                         typeof window !== "undefined" &&
+                         typeof console === "object" &&
+                         typeof console.info === "function"
+                         ) {
+                         window.console.info("Viewer watching timer start for ID " + this.ID);
+                         }
+                         */
                         this.numTimerFrom = Date.now();
                     }
                     this.booTimerFlag = true;
                 } else {
                     if (this.booTimerFlag === true) {
                         /*
-                        if (
-                            typeof window !== "undefined" &&
-                            typeof console === "object" &&
-                            typeof console.info === "function"
-                        ) {
-                            window.console.info("Viewer watching timer stop for ID " + this.ID);
-                        }
-                        */
+                         if (
+                         typeof window !== "undefined" &&
+                         typeof console === "object" &&
+                         typeof console.info === "function"
+                         ) {
+                         window.console.info("Viewer watching timer stop for ID " + this.ID);
+                         }
+                         */
                     }
                     this.booTimerFlag = false;
                 }
@@ -578,37 +578,37 @@ export default class ViewAbility implements IViewAbility {
                  */
                 if (booCallCallback) {
                     /*
-                    if (
-                        typeof window !== "undefined" &&
-                        typeof console === "object" &&
-                        typeof console.info === "function"
-                    ) {
-                        window.console.info("Viewer watching timer stop for ID " + this.ID);
-                        window.console.info("Viewer end watching ID " + this.ID);
-                    }
-                    */
+                     if (
+                     typeof window !== "undefined" &&
+                     typeof console === "object" &&
+                     typeof console.info === "function"
+                     ) {
+                     window.console.info("Viewer watching timer stop for ID " + this.ID);
+                     window.console.info("Viewer end watching ID " + this.ID);
+                     }
+                     */
                     AnimationFrame.unsubscribe(this.watchID);
                     this.funCallBack(this.ID);
                 }
             } else {
                 /*
-                if (this.booTimerFlag) {
-                    if (
-                        typeof window !== "undefined" &&
-                        typeof console === "object" &&
-                        typeof console.info === "function"
-                    ) {
-                        window.console.info("Viewer watching timer stop for ID " + this.ID);
-                    }
-                }
-                if (
-                    typeof window !== "undefined" &&
-                    typeof console === "object" &&
-                    typeof console.info === "function"
-                ) {
-                    window.console.info("Viewer end watching ID " + this.ID);
-                }
-                */
+                 if (this.booTimerFlag) {
+                 if (
+                 typeof window !== "undefined" &&
+                 typeof console === "object" &&
+                 typeof console.info === "function"
+                 ) {
+                 window.console.info("Viewer watching timer stop for ID " + this.ID);
+                 }
+                 }
+                 if (
+                 typeof window !== "undefined" &&
+                 typeof console === "object" &&
+                 typeof console.info === "function"
+                 ) {
+                 window.console.info("Viewer end watching ID " + this.ID);
+                 }
+                 */
                 AnimationFrame.unsubscribe(this.watchID);
             }
         } else if (this.ID) {

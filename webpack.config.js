@@ -115,7 +115,7 @@ arrPlugins.push(
 module.exports = {
     entry: objBuildList,
     output: {
-        filename: "[name].js",
+        filename: NODE_ENV == "production" ? "[name].min.js" : "[name].js",
         library: "ViewAbility",
         libraryTarget: "umd",
         umdNamedDefine: true
@@ -126,7 +126,11 @@ module.exports = {
     devtool: (NODE_ENV == "development" ? "inline-source-map" : (NODE_ENV == "testing" ? "inline-source-map" : "")),
     plugins: arrPlugins,
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+        alias: {
+            "AnimationFrame": path.join(__dirname, "node_modules") + "/AnimationFrame/lib/AnimationFrame.ts",
+            "Utils": path.join(__dirname, "node_modules") + "/Utils/lib/Utils.ts"
+        }
     },
     resolveLoader: {
         root: path.join(__dirname, "node_modules"),
@@ -161,8 +165,7 @@ module.exports = {
                     }),
                     "babel-loader?presets[]=babel-preset-es2015-loose",
                     "ts-loader"
-                ],
-                exclude: /node_modules/
+                ]
             },
             {
                 test: /\.html/i,
