@@ -62,7 +62,7 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
      */
-    public static resizeEvent() {
+    public static resizeEvent(): void {
         ViewAbility.numDocumentWidth = false;
         ViewAbility.numDocumentHeight = false;
         ViewAbility.numWindowWidth = false;
@@ -74,7 +74,7 @@ export default class ViewAbility implements IViewAbility {
      * Метод для генерации UID
      * @returns {string}
      */
-    public static getID() {
+    public static getID(): string {
         return "v_" + (Date.now()) + "_" + (~~(Math.random() * 1e6));
     };
 
@@ -83,7 +83,7 @@ export default class ViewAbility implements IViewAbility {
      * @param domNode
      * @returns {CSSStyleDeclaration}
      */
-    public static getComputedStyle(domNode) {
+    public static getComputedStyle(domNode: any): CSSStyleDeclaration {
         if (
             !domNode.viewability || !ViewAbility.arrDomStyle[domNode.viewability]
         ) {
@@ -100,11 +100,11 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Высота окна
      */
-    public static getWindowHeight() {
+    public static getWindowHeight(): number {
         if (!ViewAbility.numWindowHeight) {
             ViewAbility.numWindowHeight = Utils.Window.getHeight();
         }
-        return ViewAbility.numWindowHeight;
+        return ViewAbility.numWindowHeight || 0;
     };
 
     /**
@@ -112,11 +112,11 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Высота документа
      */
-    public static getDocumentHeight() {
+    public static getDocumentHeight(): number {
         if (!ViewAbility.numDocumentHeight) {
             ViewAbility.numDocumentHeight = Utils.Document.getHeight();
         }
-        return ViewAbility.numDocumentHeight;
+        return ViewAbility.numDocumentHeight || 0;
     };
 
     /**
@@ -124,11 +124,11 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Ширина окна
      */
-    public static getWindowWidth() {
+    public static getWindowWidth(): number {
         if (!ViewAbility.numWindowWidth) {
             ViewAbility.numWindowWidth = Utils.Window.getWidth();
         }
-        return ViewAbility.numWindowWidth;
+        return ViewAbility.numWindowWidth || 0;
     };
 
     /**
@@ -136,11 +136,11 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Ширина документа
      */
-    public static getDocumentWidth() {
+    public static getDocumentWidth(): number {
         if (!ViewAbility.numDocumentWidth) {
             ViewAbility.numDocumentWidth = Utils.Document.getWidth();
         }
-        return ViewAbility.numDocumentWidth;
+        return ViewAbility.numDocumentWidth || 0;
     };
 
     /**
@@ -150,7 +150,14 @@ export default class ViewAbility implements IViewAbility {
      * @returns {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
      * Массив с параметрами размеров и положения
      */
-    public static getBoundingClientRect(domNode) {
+    public static getBoundingClientRect(domNode: Node): {
+        bottom: number,
+        height: number,
+        left: number,
+        right: number,
+        top: number,
+        width: number
+    } {
         return Utils.DOM.getBoundingClientRect(domNode);
     };
 
@@ -161,7 +168,14 @@ export default class ViewAbility implements IViewAbility {
      * Массив с параметрами размеров и положения
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
      */
-    public static calcVisibility(objSizes) {
+    public static calcVisibility(objSizes: {
+        left: number,
+        right: number,
+        top: number,
+        bottom: number,
+        width: number,
+        height: number
+    }): number {
         /**
          * Определяем высоту окна
          * @type {number}
@@ -242,10 +256,10 @@ export default class ViewAbility implements IViewAbility {
      * @param numDocumentHeight - Высота документа
      * @returns {boolean} - Флаг видимости элемента
      */
-    public static isVisible(domNode,
-                            booElement,
-                            numDocumentWidth,
-                            numDocumentHeight) {
+    public static isVisible(domNode: HTMLElement,
+                            booElement: boolean,
+                            numDocumentWidth: number,
+                            numDocumentHeight: number): boolean {
         /**
          * TODO: не учитывать родителей если position fixed
          */
@@ -283,7 +297,7 @@ export default class ViewAbility implements IViewAbility {
              * Если элемент имеет нулевую прозрачность или скрыт или не имеет отображения
              */
             if (
-                objStyle.opacity === 0 ||
+                objStyle.opacity === "0" ||
                 objStyle.display === "none" ||
                 objStyle.visibility === "hidden"
             ) {
@@ -302,7 +316,7 @@ export default class ViewAbility implements IViewAbility {
      * @param domBanner {Object} - Элемент DOM дерева
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
      */
-    public static checkVisibility(domBanner) {
+    public static checkVisibility(domBanner: HTMLElement): number {
         /**
          * Устанавливаем флаг видимости элемента
          * Записываем элемент во временную переменную дял перебора по родителям
@@ -382,130 +396,142 @@ export default class ViewAbility implements IViewAbility {
     public watchID: any;
     public numTimerFrom: any;
 
-    constructor(domElement, objSetting, funCallBack) {
+    /**
+     * Init
+     * @param domElement
+     * @param objSetting
+     * @param funCallBack
+     */
+    constructor(domElement: HTMLElement | string,
+                objSetting: any,
+                funCallBack: Function = () => {
+                }) {
         /**
-         * Подписки на события окна
+         * Если передан DOM элемент
          */
-        if (window.addEventListener) {
-            window.addEventListener("resize", ViewAbility.resizeEvent);
-            window.addEventListener("orientationchange", ViewAbility.resizeEvent);
-        } else if (window.attachEvent) {
-            window.attachEvent("onresize", ViewAbility.resizeEvent);
+        if (
+            domElement &&
+            typeof domElement === "object" &&
+            domElement.nodeType === 1 &&
+            domElement.parentElement &&
+            domElement.parentElement.nodeName !== "HTML"
+        ) {
+            domElement.id = this.ID = domElement.id || ViewAbility.getID();
+        } else if (
+            domElement &&
+            typeof domElement === "string" &&
+            domElement.length > 0
+        ) {
+            this.ID = domElement.toString();
+            domElement = document.getElementById("" + this.ID);
+        } else {
+            domElement = null;
         }
+
         /**
-         * Хак для ручного сброса ресайзного кеша раз в секкунду, на всякий случай
+         * Если вторым параметром переданы не параметры
          */
-        setInterval(
-            () => {
-                ViewAbility.resizeEvent();
-            },
-            1000
-        );
-        /**
-         * Ручной снос кеша для переинициализации переменных кеша
-         */
-        ViewAbility.resizeEvent();
-        /**
-         * Конструктор
-         */
-        if (domElement) {
+        if (
+            !objSetting ||
+            typeof(objSetting) !== "object"
+        ) {
+            objSetting = {
+                percentage: 0.5,
+                time: 1000,
+            };
+        } else {
             /**
-             * Если передан DOM элемент
+             * Парсим процент видемой части и присваиваем значение по умолчанию, если передано
+             * не валидное значение
+             * @type {Number}
              */
-            if (typeof domElement === "object") {
-                domElement.id = this.ID = domElement.id || ViewAbility.getID();
+            if (objSetting.percentage) {
+                objSetting.percentage = parseFloat(objSetting.percentage);
+                if (objSetting.percentage) {
+                    objSetting.percentage = objSetting.percentage < 0 ? 0 : objSetting.percentage;
+                    objSetting.percentage = objSetting.percentage > 1 ? 1 : objSetting.percentage;
+                } else {
+                    objSetting.percentage = 0.5;
+                }
             } else {
-                this.ID = domElement;
-                domElement = document.getElementById("" + this.ID);
+                objSetting.percentage = 0.5;
             }
             /**
-             * Если DOM элемент передан или найден
+             * Парсим время видимости и присваиваем значение по умолчанию, если передано не валидное значение
+             * @type {Number}
              */
-            if (domElement) {
-                /**
-                 * Если вторым параметром переданы не параметры
-                 */
-                if (
-                    !objSetting ||
-                    typeof(objSetting) !== "object"
-                ) {
-                    objSetting = {
-                        percentage: 0.5,
-                        time: 1000,
-                    };
+            if (objSetting.time) {
+                objSetting.time = parseInt(objSetting.time, 10);
+                if (objSetting.time) {
+                    objSetting.time = objSetting.time < 0 ? 0 : objSetting.time;
+                    objSetting.time = objSetting.time > 60000 ? 60000 : objSetting.time;
                 } else {
-                    /**
-                     * Парсим процент видемой части и присваиваем значение по умолчанию, если передано
-                     * не валидное значение
-                     * @type {Number}
-                     */
-                    if (objSetting.percentage) {
-                        objSetting.percentage = parseFloat(objSetting.percentage);
-                        if (objSetting.percentage) {
-                            objSetting.percentage = objSetting.percentage < 0 ? 0 : objSetting.percentage;
-                            objSetting.percentage = objSetting.percentage > 1 ? 1 : objSetting.percentage;
-                        } else {
-                            objSetting.percentage = 0.5;
-                        }
-                    } else {
-                        objSetting.percentage = 0.5;
-                    }
-                    /**
-                     * Парсим время видимости и присваиваем значение по умолчанию, если передано не валидное значение
-                     * @type {Number}
-                     */
-                    if (objSetting.time) {
-                        objSetting.time = parseInt(objSetting.time, 10);
-                        if (objSetting.time) {
-                            objSetting.time = objSetting.time < 0 ? 0 : objSetting.time;
-                            objSetting.time = objSetting.time > 60000 ? 60000 : objSetting.time;
-                        } else {
-                            objSetting.time = 1000;
-                        }
-                    } else {
-                        objSetting.time = 1000;
-                    }
+                    objSetting.time = 1000;
                 }
-                /**
-                 * Проверяем, что в качестве колбека передана функция
-                 */
-                if (
-                    !funCallBack ||
-                    typeof(funCallBack) !== "function"
-                ) {
-                    funCallBack = (ID) => {
-                        /*
-                         if (
-                         typeof window !== "undefined" &&
-                         typeof console === "object" &&
-                         typeof console.info === "function"
-                         ) {
-                         window.console.info("Banner was seen ID " + this.ID);
-                         }
-                         */
-                    };
-                }
-                /**
-                 * Задаем параметры и начинаем отслеживать
-                 */
-                this.domElement = domElement;
-                this.objSetting = objSetting;
-                this.funCallBack = funCallBack;
-                this.booTimerFlag = false;
-                /*
-                 if (
-                 typeof window !== "undefined" &&
-                 typeof console === "object" &&
-                 typeof console.info === "function"
-                 ) {
-                 window.console.info("Viewer watching init for ID " + this.ID);
-                 }
-                 */
-                this.watchID = AnimationFrame.subscribe(this, this.watch, []);
+            } else {
+                objSetting.time = 1000;
             }
         }
 
-        Utils.implementationStaticMethods(this, "ViewAbility");
+        /**
+         * Проверяем, что в качестве колбека передана функция
+         */
+        if (
+            !funCallBack ||
+            typeof(funCallBack) !== "function"
+        ) {
+            funCallBack = (ID) => {
+
+            };
+        }
+
+        /**
+         * Если DOM элемент передан или найден
+         */
+        if (
+            (
+                domElement ||
+                typeof this.ID === "string"
+            ) &&
+            typeof objSetting === "object" &&
+            typeof objSetting.percentage === "number" &&
+            typeof objSetting.time === "number" &&
+            typeof funCallBack === "function"
+        ) {
+            /**
+             * Подписки на события окна
+             */
+            if (window.addEventListener) {
+                window.addEventListener("resize", ViewAbility.resizeEvent);
+                window.addEventListener("orientationchange", ViewAbility.resizeEvent);
+            } else if (window.attachEvent) {
+                window.attachEvent("onresize", ViewAbility.resizeEvent);
+            }
+            /**
+             * Хак для ручного сброса ресайзного кеша раз в секкунду, на всякий случай
+             */
+            setInterval(
+                () => {
+                    ViewAbility.resizeEvent();
+                },
+                1000
+            );
+            /**
+             * Ручной снос кеша для переинициализации переменных кеша
+             */
+            ViewAbility.resizeEvent();
+            /**
+             * Задаем параметры и начинаем отслеживать
+             */
+            this.domElement = domElement;
+            this.objSetting = objSetting;
+            this.funCallBack = funCallBack;
+            this.booTimerFlag = false;
+
+            this.watchID = AnimationFrame.subscribe(this, this.watch, []);
+
+            Utils.implementationStaticMethods(this, "ViewAbility");
+        }
     }
 
     /**
@@ -531,29 +557,11 @@ export default class ViewAbility implements IViewAbility {
                      * Если флаг отсчета был выключен, то сбрасываем таймер
                      */
                     if (this.booTimerFlag === false) {
-                        /*
-                         if (
-                         typeof window !== "undefined" &&
-                         typeof console === "object" &&
-                         typeof console.info === "function"
-                         ) {
-                         window.console.info("Viewer watching timer start for ID " + this.ID);
-                         }
-                         */
                         this.numTimerFrom = Date.now();
                     }
                     this.booTimerFlag = true;
                 } else {
                     if (this.booTimerFlag === true) {
-                        /*
-                         if (
-                         typeof window !== "undefined" &&
-                         typeof console === "object" &&
-                         typeof console.info === "function"
-                         ) {
-                         window.console.info("Viewer watching timer stop for ID " + this.ID);
-                         }
-                         */
                     }
                     this.booTimerFlag = false;
                 }
@@ -577,38 +585,10 @@ export default class ViewAbility implements IViewAbility {
                  * Если банер был виден достаточно долго, то вызываем callback, иначе продолжаем смотреть
                  */
                 if (booCallCallback) {
-                    /*
-                     if (
-                     typeof window !== "undefined" &&
-                     typeof console === "object" &&
-                     typeof console.info === "function"
-                     ) {
-                     window.console.info("Viewer watching timer stop for ID " + this.ID);
-                     window.console.info("Viewer end watching ID " + this.ID);
-                     }
-                     */
                     AnimationFrame.unsubscribe(this.watchID);
                     this.funCallBack(this.ID);
                 }
             } else {
-                /*
-                 if (this.booTimerFlag) {
-                 if (
-                 typeof window !== "undefined" &&
-                 typeof console === "object" &&
-                 typeof console.info === "function"
-                 ) {
-                 window.console.info("Viewer watching timer stop for ID " + this.ID);
-                 }
-                 }
-                 if (
-                 typeof window !== "undefined" &&
-                 typeof console === "object" &&
-                 typeof console.info === "function"
-                 ) {
-                 window.console.info("Viewer end watching ID " + this.ID);
-                 }
-                 */
                 AnimationFrame.unsubscribe(this.watchID);
             }
         } else if (this.ID) {
