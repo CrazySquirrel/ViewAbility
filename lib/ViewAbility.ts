@@ -100,7 +100,7 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Высота окна
      */
-    public static getWindowHeight(): number {
+    public static getWindowHeight(): number | boolean {
         if (!ViewAbility.numWindowHeight) {
             ViewAbility.numWindowHeight = Utils.Window.getHeight();
         }
@@ -112,7 +112,7 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Высота документа
      */
-    public static getDocumentHeight(): number {
+    public static getDocumentHeight(): number | boolean {
         if (!ViewAbility.numDocumentHeight) {
             ViewAbility.numDocumentHeight = Utils.Document.getHeight();
         }
@@ -124,7 +124,7 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Ширина окна
      */
-    public static getWindowWidth(): number {
+    public static getWindowWidth(): number | boolean {
         if (!ViewAbility.numWindowWidth) {
             ViewAbility.numWindowWidth = Utils.Window.getWidth();
         }
@@ -136,7 +136,7 @@ export default class ViewAbility implements IViewAbility {
      *
      * @returns {number} - Ширина документа
      */
-    public static getDocumentWidth(): number {
+    public static getDocumentWidth(): number | boolean {
         if (!ViewAbility.numDocumentWidth) {
             ViewAbility.numDocumentWidth = Utils.Document.getWidth();
         }
@@ -150,7 +150,7 @@ export default class ViewAbility implements IViewAbility {
      * @returns {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
      * Массив с параметрами размеров и положения
      */
-    public static getBoundingClientRect(domNode: Node): {
+    public static getBoundingClientRect(domNode: any): {
         bottom: number,
         height: number,
         left: number,
@@ -180,7 +180,8 @@ export default class ViewAbility implements IViewAbility {
          * Определяем высоту окна
          * @type {number}
          */
-        let numWindowHeight = ViewAbility.getWindowHeight();
+        let _numWindowHeight = ViewAbility.getWindowHeight();
+        let numWindowHeight = typeof _numWindowHeight === "number" ? _numWindowHeight : 0;
         /**
          * Определяем верхнюю и нижнюю видимые границы элемента
          */
@@ -207,7 +208,8 @@ export default class ViewAbility implements IViewAbility {
          * Определяем ширину окна
          * @type {number}
          */
-        let numWindowWidth = ViewAbility.getWindowWidth();
+        let _numWindowWidth = ViewAbility.getWindowWidth();
+        let numWindowWidth = typeof _numWindowWidth === "number" ? _numWindowWidth : 0;
         /**
          * Определяем левую и правую видимые границы элемента
          */
@@ -324,10 +326,12 @@ export default class ViewAbility implements IViewAbility {
          * @type {boolean}
          */
         let booVisible = true;
-        let domNode = domBanner;
+        let domNode: any = domBanner;
         let booElement = true;
-        let numDocumentWidth = ViewAbility.getDocumentWidth();
-        let numDocumentHeight = ViewAbility.getDocumentHeight();
+        let _numDocumentWidth = ViewAbility.getDocumentWidth();
+        let numDocumentWidth = typeof _numDocumentWidth === "number" ? _numDocumentWidth : 0;
+        let _numDocumentHeight = ViewAbility.getDocumentHeight();
+        let numDocumentHeight = typeof _numDocumentHeight === "number" ? _numDocumentHeight : 0;
         /**
          * Перебираем от элемента до родителей, пока текущей элемент не равен body
          */
@@ -371,7 +375,7 @@ export default class ViewAbility implements IViewAbility {
              * Вычисляем стили элемента
              * @type {number}
              */
-            let opacity = 1;
+            let opacity: any = 1;
             if (!!window.getComputedStyle) {
                 let objStyle = ViewAbility.getComputedStyle(domBanner);
                 opacity = objStyle.opacity;
