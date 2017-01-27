@@ -6,7 +6,7 @@
 [![npm version](https://img.shields.io/badge/donate-%E2%99%A5-red.svg)](http://crazysquirrel.ru/support/)
 
 Class to determine the visibility of the block.
-
+ 
 ## Build
 The repository contains pre-compiled files, but if you want to add your files and compile, then run the following commands in the repository folder.
 * npm install
