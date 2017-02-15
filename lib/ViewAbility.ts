@@ -313,12 +313,12 @@ export default class ViewAbility implements IViewAbility {
     };
 
     /**
-     * Метод определения видимости баннера
+     * Метод определения видимости баннера вообще
      *
      * @param domBanner {Object} - Элемент DOM дерева
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
      */
-    public static checkVisibility(domBanner: HTMLElement): number {
+    public static checkTotalVisibility(domBanner: HTMLElement): number {
         /**
          * Устанавливаем флаг видимости элемента
          * Записываем элемент во временную переменную дял перебора по родителям
@@ -367,11 +367,6 @@ export default class ViewAbility implements IViewAbility {
          */
         if (booVisible) {
             /**
-             * Определяем положение и размеры элемента
-             * @type {Object}
-             */
-            let objSizes = ViewAbility.getBoundingClientRect(domBanner);
-            /**
              * Вычисляем стили элемента
              * @type {number}
              */
@@ -384,7 +379,33 @@ export default class ViewAbility implements IViewAbility {
              * Рассчитываем процент видимости элемента
              * @type {number}
              */
-            numVisibility = ViewAbility.calcVisibility(objSizes) * opacity;
+            numVisibility = opacity;
+        }
+        /**
+         * Возвращаем процент видимости
+         */
+        return numVisibility;
+    };
+
+    /**
+     * Метод определения видимости баннера
+     *
+     * @param domBanner {Object} - Элемент DOM дерева
+     * @returns {number} - Коэффициент видимости элемента от 0 до 1
+     */
+    public static checkVisibility(domBanner: HTMLElement): number {
+        let numVisibility = ViewAbility.checkTotalVisibility(domBanner);
+        if (numVisibility) {
+            /**
+             * Определяем положение и размеры элемента
+             * @type {Object}
+             */
+            let objSizes = ViewAbility.getBoundingClientRect(domBanner);
+            /**
+             * Рассчитываем процент видимости элемента
+             * @type {number}
+             */
+            numVisibility = ViewAbility.calcVisibility(objSizes) * numVisibility;
         }
         /**
          * Возвращаем процент видимости
