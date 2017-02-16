@@ -269,41 +269,53 @@ export default class ViewAbility implements IViewAbility {
          * Устанавливаем флаг видимости и вычисляем размеры элемента
          * @type {boolean}
          */
-        let booVisible = true;
-        let objSizes = ViewAbility.getBoundingClientRect(domNode);
+        let booVisible = !!Utils.DOM.getDOMNode(domNode);
         /**
-         * Если у элемента нет ширины или высоты то он или скрыт или у него нет размеров
+         * Check if element still visible
          */
-        if (
-            !(objSizes.width && objSizes.height) &&
-            (booElement || domNode.style.overflow !== "")
-        ) {
-            booVisible = false;
-        } else if (
-            booElement &&
-            (
-                objSizes.bottom < 0 ||
-                objSizes.right < 0 ||
-                objSizes.left > numDocumentWidth ||
-                objSizes.top > numDocumentHeight
-            )
-        ) {
-            booVisible = false;
-        } else if (!!window.getComputedStyle) {
+        if (booVisible) {
+            let objSizes = ViewAbility.getBoundingClientRect(domNode);
             /**
-             * Вычисляем стили элемента
-             * @type {CSSStyleDeclaration}
-             */
-            let objStyle = ViewAbility.getComputedStyle(domNode);
-            /**
-             * Если элемент имеет нулевую прозрачность или скрыт или не имеет отображения
+             * Если у элемента нет ширины или высоты то он или скрыт или у него нет размеров
              */
             if (
-                objStyle.opacity === "0" ||
-                objStyle.display === "none" ||
-                objStyle.visibility === "hidden"
+                !(objSizes.width && objSizes.height) &&
+                (booElement || domNode.style.overflow !== "")
             ) {
                 booVisible = false;
+            } else if (
+                booElement &&
+                (
+                    objSizes.bottom < 0 ||
+                    objSizes.right < 0 ||
+                    objSizes.left > numDocumentWidth ||
+                    objSizes.top > numDocumentHeight
+                )
+            ) {
+                booVisible = false;
+            } else if (!!window.getComputedStyle) {
+                /**
+                 * Check dom node existens
+                 */
+                if (domNode) {
+                    /**
+                     * Вычисляем стили элемента
+                     * @type {CSSStyleDeclaration}
+                     */
+                    let objStyle = ViewAbility.getComputedStyle(domNode);
+                    /**
+                     * Если элемент имеет нулевую прозрачность или скрыт или не имеет отображения
+                     */
+                    if (
+                        objStyle.opacity === "0" ||
+                        objStyle.display === "none" ||
+                        objStyle.visibility === "hidden"
+                    ) {
+                        booVisible = false;
+                    }
+                } else {
+                    booVisible = false;
+                }
             }
         }
         /**
@@ -371,9 +383,16 @@ export default class ViewAbility implements IViewAbility {
              * @type {number}
              */
             let opacity: any = 1;
-            if (!!window.getComputedStyle) {
-                let objStyle = ViewAbility.getComputedStyle(domBanner);
-                opacity = objStyle.opacity;
+            /**
+             * Check dom element existens
+             */
+            if (domBanner) {
+                if (!!window.getComputedStyle) {
+                    let objStyle = ViewAbility.getComputedStyle(domBanner);
+                    opacity = objStyle.opacity;
+                }
+            } else {
+                opacity = 0;
             }
             /**
              * Рассчитываем процент видимости элемента
