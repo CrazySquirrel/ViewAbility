@@ -2,7 +2,7 @@
 declare var require: any;
 require("./index.html");
 
-let ViewAbility = require("../../lib/ViewAbility.js");
+let ViewAbility = require("../../lib/ViewAbility.ts");
 
 new ViewAbility(
     document.getElementById("test-block"),
