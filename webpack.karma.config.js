@@ -85,15 +85,6 @@ if (NODE_ENV == "production" || NODE_ENV == "testing") {
             }
         })
     );
-    arrPlugins.push(
-        new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /lib\/([0-9a-zA-Z-_\/]{1,})\.js$/,
-            threshold: 10240,
-            minRatio: 0.8
-        })
-    );
 }
 /**
  * Add additional plugins
@@ -116,7 +107,7 @@ arrPlugins.push(
 module.exports = {
     entry: objBuildList,
     output: {
-        filename: NODE_ENV == "production" ? "[name].min.js" : "[name].js",
+        filename: NODE_ENV == "production" ? "[name].js" : "[name].js",
         library: "ViewAbility",
         libraryTarget: "umd",
         umdNamedDefine: true

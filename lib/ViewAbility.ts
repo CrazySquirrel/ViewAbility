@@ -57,7 +57,7 @@ export default class ViewAbility implements IViewAbility {
     public static numDocumentHeight: number|boolean;
     public static numWindowWidth: number|boolean;
     public static numWindowHeight: number|boolean;
-    public static arrDomStyle: Object;
+    public static arrDomStyle: Object = {};
 
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
@@ -67,7 +67,7 @@ export default class ViewAbility implements IViewAbility {
         ViewAbility.numDocumentHeight = false;
         ViewAbility.numWindowWidth = false;
         ViewAbility.numWindowHeight = false;
-        ViewAbility.arrDomStyle = [];
+        ViewAbility.arrDomStyle = {};
     };
 
     /**
