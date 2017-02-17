@@ -1,6 +1,6 @@
 {
   "name": "ViewAbility",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "./lib/ViewAbility.js",
   "description": "Class to determine the visibility of the block.",
   "keywords": [
