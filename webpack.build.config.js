@@ -122,7 +122,11 @@ module.exports = {
     alias: {
       "AnimationFrame": path.join(__dirname, "node_modules")
       + "/AnimationFrame/lib/AnimationFrame.ts",
-      "Utils": path.join(__dirname, "node_modules") + "/Utils/lib/Utils.ts"
+      "Utils": path.join(__dirname, "node_modules") + "/Utils/lib/Utils.ts",
+      "UtilsMain": path.join(__dirname, "node_modules") + "/Utils/lib/UtilsMain.ts",
+      "UtilsDocument": path.join(__dirname, "node_modules") + "/Utils/lib/UtilsDocument.ts",
+      "UtilsDOM": path.join(__dirname, "node_modules") + "/Utils/lib/UtilsDOM.ts",
+      "UtilsWindow": path.join(__dirname, "node_modules") + "/Utils/lib/UtilsWindow.ts"
     }
   },
   resolveLoader: {

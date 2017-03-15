@@ -10,6 +10,18 @@
     ],
     "Utils": [
       "./node_modules/Utils/lib/Utils.ts"
+    ],
+    "UtilsMain": [
+      "./node_modules/Utils/lib/UtilsMain.ts"
+    ],
+    "UtilsDocument": [
+      "./node_modules/Utils/lib/UtilsDocument.ts"
+    ],
+    "UtilsDOM": [
+      "./node_modules/Utils/lib/UtilsDOM.ts"
+    ],
+    "UtilsWindow": [
+      "./node_modules/Utils/lib/UtilsWindow.ts"
     ]
   },
   "files": [

@@ -18,8 +18,10 @@ import IViewAbility from "../interfaces/IViewAbility";
  */
 declare var require: any;
 import AnimationFrame from "AnimationFrame";
-import Utils from "Utils";
-
+import UtilsMain from "UtilsMain";
+import UtilsDocument from "UtilsDocument";
+import UtilsDOM from "UtilsDOM";
+import UtilsWindow from "UtilsWindow";
 /**
  * @class
  *
@@ -102,7 +104,7 @@ export default class ViewAbility implements IViewAbility {
    */
   public static getWindowHeight(): number | boolean {
     if (!ViewAbility.numWindowHeight) {
-      ViewAbility.numWindowHeight = Utils.Window.getHeight();
+      ViewAbility.numWindowHeight = UtilsWindow.getHeight();
     }
     return ViewAbility.numWindowHeight || 0;
   };
@@ -114,7 +116,7 @@ export default class ViewAbility implements IViewAbility {
    */
   public static getDocumentHeight(): number | boolean {
     if (!ViewAbility.numDocumentHeight) {
-      ViewAbility.numDocumentHeight = Utils.Document.getHeight();
+      ViewAbility.numDocumentHeight = UtilsDocument.getHeight();
     }
     return ViewAbility.numDocumentHeight || 0;
   };
@@ -126,7 +128,7 @@ export default class ViewAbility implements IViewAbility {
    */
   public static getWindowWidth(): number | boolean {
     if (!ViewAbility.numWindowWidth) {
-      ViewAbility.numWindowWidth = Utils.Window.getWidth();
+      ViewAbility.numWindowWidth = UtilsWindow.getWidth();
     }
     return ViewAbility.numWindowWidth || 0;
   };
@@ -138,7 +140,7 @@ export default class ViewAbility implements IViewAbility {
    */
   public static getDocumentWidth(): number | boolean {
     if (!ViewAbility.numDocumentWidth) {
-      ViewAbility.numDocumentWidth = Utils.Document.getWidth();
+      ViewAbility.numDocumentWidth = UtilsDocument.getWidth();
     }
     return ViewAbility.numDocumentWidth || 0;
   };
@@ -158,7 +160,7 @@ export default class ViewAbility implements IViewAbility {
     top: number,
     width: number
   } {
-    return Utils.DOM.getBoundingClientRect(domNode);
+    return UtilsDOM.getBoundingClientRect(domNode);
   };
 
   /**
@@ -269,7 +271,7 @@ export default class ViewAbility implements IViewAbility {
      * Устанавливаем флаг видимости и вычисляем размеры элемента
      * @type {boolean}
      */
-    let booVisible = !!Utils.DOM.getDOMNode(domNode);
+    let booVisible = !!UtilsDOM.getDOMNode(domNode);
     /**
      * Check if element still visible
      */
@@ -574,7 +576,7 @@ export default class ViewAbility implements IViewAbility {
 
       this.watchID = AnimationFrame.subscribe(this, this.watch, []);
 
-      Utils.implementationStaticMethods(this, "ViewAbility");
+      UtilsMain.implementationStaticMethods(this, "ViewAbility");
     }
   }
 
