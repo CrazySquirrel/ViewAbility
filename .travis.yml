@@ -2,7 +2,7 @@ language: node_js
 node_js: '6'
 install: npm install
 script:
-  - npm run karma
+  - npm run test
   - npm run production
 after_success:
   - npm install -g codeclimate-test-reporter
@@ -10,11 +10,13 @@ after_success:
 addons:
   code_climate:
     repo_token: 1c8a16678bca321ca30bffc0fe854777638d7709db7ee93ef9dfc26e1e58d3cc
+branches:
+  only:
+    - master
 deploy:
   provider: npm
   email: 'info@crazysquirrel.ru'
   api_key: '443206b0-d7ea-47eb-89ca-9ff2e6ec246b'
   skip_cleanup: true
   on:
-    tags: true
     branch: master
