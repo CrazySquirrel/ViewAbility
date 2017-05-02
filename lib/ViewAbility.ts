@@ -8,6 +8,7 @@ import IWindow from "../interfaces/IWindow";
  */
 declare let window: IWindow;
 declare let module: any;
+
 /**
  * Import interface
  */
@@ -17,11 +18,14 @@ import IViewAbility from "../interfaces/IViewAbility";
  * Import Animation frame
  */
 declare var require: any;
-import AnimationFrame from "AnimationFrame";
-import UtilsMain from "UtilsMain";
-import UtilsDocument from "UtilsDocument";
-import UtilsDOM from "UtilsDOM";
-import UtilsWindow from "UtilsWindow";
+/**
+ * Add submodules
+ */
+import AnimationFrame from "AnimationFrame/lib/AnimationFrame";
+import UtilsDocument from "Utils/lib/UtilsDocument";
+import UtilsDOM from "Utils/lib/UtilsDOM";
+import UtilsMain from "Utils/lib/UtilsMain";
+import UtilsWindow from "Utils/lib/UtilsWindow";
 /**
  * @class
  *
@@ -448,7 +452,7 @@ export default class ViewAbility implements IViewAbility {
    * @param objSetting
    * @param funCallBack
    */
-  constructor(domElement: HTMLElement | string,
+  constructor(domElement: any,
               objSetting: any,
               funCallBack: Function = () => {
               }) {
@@ -526,7 +530,7 @@ export default class ViewAbility implements IViewAbility {
         !funCallBack ||
         typeof(funCallBack) !== "function"
     ) {
-      funCallBack = (ID) => {
+      funCallBack = () => {
 
       };
     }

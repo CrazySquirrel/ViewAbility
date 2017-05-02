@@ -9,6 +9,7 @@
     "no-var-requires": false,
     "variable-name": false,
     "no-unused-variable": false,
-    "no-console": false
+    "no-console": false,
+    "no-empty": false
   }
 }

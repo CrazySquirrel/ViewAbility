@@ -1,7 +1,5 @@
 "use strict";
 
-declare let beforeEach: any;
-declare let afterEach: any;
 declare let describe: any;
 declare let it: any;
 declare let expect: any;
@@ -61,7 +59,7 @@ describe("ViewAbility", () => {
         time: 2000,
       },
       () => {
-      }
+      },
     ];
 
     let dataSet = [];
@@ -91,7 +89,7 @@ describe("ViewAbility", () => {
             );
             dataSet.push({
               params: [x1, x2, x3],
-              result: cond
+              result: cond,
             });
           }
         }
