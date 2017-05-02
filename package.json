@@ -19,7 +19,7 @@
   "jsnext:main": "./lib/ViewAbility.js",
   "types": "./lib/ViewAbility.d.ts",
   "bin": {
-    "AnimationFrame": "./lib/ViewAbility.js"
+    "ViewAbility": "./lib/ViewAbility.js"
   },
   "man": "./README.md",
   "repository": {
