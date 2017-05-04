@@ -451,11 +451,13 @@ export default class ViewAbility implements IViewAbility {
    * @param domElement
    * @param objSetting
    * @param funCallBack
+   * @param SubscriptionID
    */
   constructor(domElement: any,
               objSetting: any,
               funCallBack: Function = () => {
-              }) {
+              },
+              SubscriptionID?: string) {
     /**
      * Если передан DOM элемент
      */
@@ -578,7 +580,48 @@ export default class ViewAbility implements IViewAbility {
       this.funCallBack = funCallBack;
       this.booTimerFlag = false;
 
-      this.watchID = AnimationFrame.subscribe(this, this.watch, []);
+      /**
+       * Get element ID
+       */
+      if (
+          typeof this.ID !== "string" &&
+          this.domElement &&
+          typeof this.domElement === "object" &&
+          this.domElement.nodeType === 1 &&
+          this.domElement.parentElement &&
+          this.domElement.parentElement.nodeName !== "HTML"
+      ) {
+        this.ID = this.domElement.id;
+      }
+
+      /**
+       * Get subscription id from adf or element
+       */
+      if (typeof SubscriptionID === "string") {
+        this.watchID = SubscriptionID;
+      } else if (typeof this.ID === "string") {
+        this.watchID = this.ID;
+      } else {
+        this.watchID = "";
+      }
+
+      /**
+       * Subscript watcher for passed id or for a new one
+       */
+      if (this.watchID) {
+        this.watchID = AnimationFrame.subscribe(
+            this,
+            this.watch,
+            [],
+            this.watchID
+        );
+      } else {
+        this.watchID = AnimationFrame.subscribe(
+            this,
+            this.watch,
+            []
+        );
+      }
 
       UtilsMain.implementationStaticMethods(this, "ViewAbility");
     }
