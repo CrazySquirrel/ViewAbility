@@ -38,7 +38,7 @@ export default class ViewAbility implements IViewAbility {
     static numDocumentHeight: number | boolean;
     static numWindowWidth: number | boolean;
     static numWindowHeight: number | boolean;
-    static arrDomStyle: Object;
+    static arrDomStyle: any;
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
      */
@@ -135,7 +135,7 @@ export default class ViewAbility implements IViewAbility {
     ID: string;
     domElement: any;
     objSetting: any;
-    funCallBack: Function;
+    funCallBack: any;
     booTimerFlag: boolean;
     watchID: any;
     numTimerFrom: any;
@@ -144,8 +144,9 @@ export default class ViewAbility implements IViewAbility {
      * @param domElement
      * @param objSetting
      * @param funCallBack
+     * @param SubscriptionID
      */
-    constructor(domElement: any, objSetting: any, funCallBack?: Function);
+    constructor(domElement: any, objSetting: any, funCallBack?: any, SubscriptionID?: string);
     /**
      * Watcher
      */

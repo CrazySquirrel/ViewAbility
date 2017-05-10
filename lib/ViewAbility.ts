@@ -15,10 +15,6 @@ declare let module: any;
 import IViewAbility from "../interfaces/IViewAbility";
 
 /**
- * Import Animation frame
- */
-declare var require: any;
-/**
  * Add submodules
  */
 import AnimationFrame from "AnimationFrame/lib/AnimationFrame";
@@ -26,6 +22,7 @@ import UtilsDocument from "Utils/lib/UtilsDocument";
 import UtilsDOM from "Utils/lib/UtilsDOM";
 import UtilsMain from "Utils/lib/UtilsMain";
 import UtilsWindow from "Utils/lib/UtilsWindow";
+
 /**
  * @class
  *
@@ -63,7 +60,7 @@ export default class ViewAbility implements IViewAbility {
   public static numDocumentHeight: number|boolean;
   public static numWindowWidth: number|boolean;
   public static numWindowHeight: number|boolean;
-  public static arrDomStyle: Object = {};
+  public static arrDomStyle: any = {};
 
   /**
    * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
@@ -74,7 +71,7 @@ export default class ViewAbility implements IViewAbility {
     ViewAbility.numWindowWidth = false;
     ViewAbility.numWindowHeight = false;
     ViewAbility.arrDomStyle = {};
-  };
+  }
 
   /**
    * Метод для генерации UID
@@ -82,7 +79,7 @@ export default class ViewAbility implements IViewAbility {
    */
   public static getID(): string {
     return "v_" + (Date.now()) + "_" + (~~(Math.random() * 1e6));
-  };
+  }
 
   /**
    * Расчет стилей элемента
@@ -99,7 +96,7 @@ export default class ViewAbility implements IViewAbility {
       ViewAbility.arrDomStyle[domNode.viewability] = window.getComputedStyle(domNode);
     }
     return ViewAbility.arrDomStyle[domNode.viewability];
-  };
+  }
 
   /**
    * Определение высоты окна
@@ -111,7 +108,7 @@ export default class ViewAbility implements IViewAbility {
       ViewAbility.numWindowHeight = UtilsWindow.getHeight();
     }
     return ViewAbility.numWindowHeight || 0;
-  };
+  }
 
   /**
    * Определение высоты документа
@@ -123,7 +120,7 @@ export default class ViewAbility implements IViewAbility {
       ViewAbility.numDocumentHeight = UtilsDocument.getHeight();
     }
     return ViewAbility.numDocumentHeight || 0;
-  };
+  }
 
   /**
    * Определение ширины окна
@@ -135,7 +132,7 @@ export default class ViewAbility implements IViewAbility {
       ViewAbility.numWindowWidth = UtilsWindow.getWidth();
     }
     return ViewAbility.numWindowWidth || 0;
-  };
+  }
 
   /**
    * Определение ширины документа
@@ -147,7 +144,7 @@ export default class ViewAbility implements IViewAbility {
       ViewAbility.numDocumentWidth = UtilsDocument.getWidth();
     }
     return ViewAbility.numDocumentWidth || 0;
-  };
+  }
 
   /**
    * Определение положени и размеров элемента
@@ -162,10 +159,10 @@ export default class ViewAbility implements IViewAbility {
     left: number,
     right: number,
     top: number,
-    width: number
+    width: number,
   } {
     return UtilsDOM.getBoundingClientRect(domNode);
-  };
+  }
 
   /**
    * Метод для определения процента видимой части баннера на экране пользователя
@@ -180,25 +177,25 @@ export default class ViewAbility implements IViewAbility {
     top: number,
     bottom: number,
     width: number,
-    height: number
+    height: number,
   }): number {
     /**
      * Определяем высоту окна
      * @type {number}
      */
-    let _numWindowHeight = ViewAbility.getWindowHeight();
-    let numWindowHeight = typeof _numWindowHeight === "number" ? _numWindowHeight : 0;
+    const _numWindowHeight = ViewAbility.getWindowHeight();
+    const numWindowHeight = typeof _numWindowHeight === "number" ? _numWindowHeight : 0;
     /**
      * Определяем верхнюю и нижнюю видимые границы элемента
      */
-    let numElementScrollTopFrom = objSizes.top < 0 ? 0 : objSizes.top;
-    let numElementScrollTopTo = objSizes.bottom > numWindowHeight ? numWindowHeight : objSizes.bottom;
+    const numElementScrollTopFrom = objSizes.top < 0 ? 0 : objSizes.top;
+    const numElementScrollTopTo = objSizes.bottom > numWindowHeight ? numWindowHeight : objSizes.bottom;
     /**
      * Определяем видимую и максимально возможную видимую области элемента по высоте
      * @type {number}
      */
-    let numElementViewHeight = numElementScrollTopTo - numElementScrollTopFrom;
-    let numElementMaxViewHeight = objSizes.height < numWindowHeight ? objSizes.height : numWindowHeight;
+    const numElementViewHeight = numElementScrollTopTo - numElementScrollTopFrom;
+    const numElementMaxViewHeight = objSizes.height < numWindowHeight ? objSizes.height : numWindowHeight;
     /**
      * Вычисляем процент видимой части по высоте
      * @type {number}
@@ -214,19 +211,19 @@ export default class ViewAbility implements IViewAbility {
      * Определяем ширину окна
      * @type {number}
      */
-    let _numWindowWidth = ViewAbility.getWindowWidth();
-    let numWindowWidth = typeof _numWindowWidth === "number" ? _numWindowWidth : 0;
+    const _numWindowWidth = ViewAbility.getWindowWidth();
+    const numWindowWidth = typeof _numWindowWidth === "number" ? _numWindowWidth : 0;
     /**
      * Определяем левую и правую видимые границы элемента
      */
-    let numElementScrollLeftFrom = objSizes.left < 0 ? 0 : objSizes.left;
-    let numElementScrollLeftTo = objSizes.right > numWindowWidth ? numWindowWidth : objSizes.right;
+    const numElementScrollLeftFrom = objSizes.left < 0 ? 0 : objSizes.left;
+    const numElementScrollLeftTo = objSizes.right > numWindowWidth ? numWindowWidth : objSizes.right;
     /**
      * Определяем видимую и максимально возможную видимую области элемента по ширине
      * @type {number}
      */
-    let numElementViewWidth = numElementScrollLeftTo - numElementScrollLeftFrom;
-    let numElementMaxViewWidth = objSizes.width < numWindowWidth ? objSizes.width : numWindowWidth;
+    const numElementViewWidth = numElementScrollLeftTo - numElementScrollLeftFrom;
+    const numElementMaxViewWidth = objSizes.width < numWindowWidth ? objSizes.width : numWindowWidth;
     /**
      * Вычисляем процент видимой части по ширине
      * @type {number}
@@ -253,7 +250,7 @@ export default class ViewAbility implements IViewAbility {
      * Возвращаем процент видимой площади в диапазоне от 0 до 1
      */
     return numElementViewPath;
-  };
+  }
 
   /**
    * * Определение видимости элемента вообще
@@ -280,7 +277,7 @@ export default class ViewAbility implements IViewAbility {
      * Check if element still visible
      */
     if (booVisible) {
-      let objSizes = ViewAbility.getBoundingClientRect(domNode);
+      const objSizes = ViewAbility.getBoundingClientRect(domNode);
       /**
        * Если у элемента нет ширины или высоты то он или скрыт или у него нет размеров
        */
@@ -308,7 +305,7 @@ export default class ViewAbility implements IViewAbility {
            * Вычисляем стили элемента
            * @type {CSSStyleDeclaration}
            */
-          let objStyle = ViewAbility.getComputedStyle(domNode);
+          const objStyle = ViewAbility.getComputedStyle(domNode);
           /**
            * Если элемент имеет нулевую прозрачность или скрыт или не имеет отображения
            */
@@ -328,7 +325,7 @@ export default class ViewAbility implements IViewAbility {
      * Возвращаем флаг видимости
      */
     return booVisible;
-  };
+  }
 
   /**
    * Метод определения видимости баннера вообще
@@ -346,10 +343,10 @@ export default class ViewAbility implements IViewAbility {
     let booVisible = true;
     let domNode: any = domBanner;
     let booElement = true;
-    let _numDocumentWidth = ViewAbility.getDocumentWidth();
-    let numDocumentWidth = typeof _numDocumentWidth === "number" ? _numDocumentWidth : 0;
-    let _numDocumentHeight = ViewAbility.getDocumentHeight();
-    let numDocumentHeight = typeof _numDocumentHeight === "number" ? _numDocumentHeight : 0;
+    const _numDocumentWidth = ViewAbility.getDocumentWidth();
+    const numDocumentWidth = typeof _numDocumentWidth === "number" ? _numDocumentWidth : 0;
+    const _numDocumentHeight = ViewAbility.getDocumentHeight();
+    const numDocumentHeight = typeof _numDocumentHeight === "number" ? _numDocumentHeight : 0;
     /**
      * Перебираем от элемента до родителей, пока текущей элемент не равен body
      */
@@ -394,7 +391,7 @@ export default class ViewAbility implements IViewAbility {
        */
       if (domBanner) {
         if (!!window.getComputedStyle) {
-          let objStyle = ViewAbility.getComputedStyle(domBanner);
+          const objStyle = ViewAbility.getComputedStyle(domBanner);
           opacity = objStyle.opacity;
         }
       } else {
@@ -410,7 +407,7 @@ export default class ViewAbility implements IViewAbility {
      * Возвращаем процент видимости
      */
     return numVisibility;
-  };
+  }
 
   /**
    * Метод определения видимости баннера
@@ -425,7 +422,7 @@ export default class ViewAbility implements IViewAbility {
        * Определяем положение и размеры элемента
        * @type {Object}
        */
-      let objSizes = ViewAbility.getBoundingClientRect(domBanner);
+      const objSizes = ViewAbility.getBoundingClientRect(domBanner);
       /**
        * Рассчитываем процент видимости элемента
        * @type {number}
@@ -436,12 +433,12 @@ export default class ViewAbility implements IViewAbility {
      * Возвращаем процент видимости
      */
     return numVisibility;
-  };
+  }
 
   public ID: string;
   public domElement: any;
   public objSetting: any;
-  public funCallBack: Function;
+  public funCallBack: any;
   public booTimerFlag: boolean;
   public watchID: any;
   public numTimerFrom: any;
@@ -455,7 +452,7 @@ export default class ViewAbility implements IViewAbility {
    */
   constructor(domElement: any,
               objSetting: any,
-              funCallBack: Function = () => {
+              funCallBack: any = () => {
               },
               SubscriptionID?: string) {
     /**
@@ -566,7 +563,7 @@ export default class ViewAbility implements IViewAbility {
           () => {
             ViewAbility.resizeEvent();
           },
-          1000
+          1000,
       );
       /**
        * Ручной снос кеша для переинициализации переменных кеша
@@ -613,13 +610,13 @@ export default class ViewAbility implements IViewAbility {
             this,
             this.watch,
             [],
-            this.watchID
+            this.watchID,
         );
       } else {
         this.watchID = AnimationFrame.subscribe(
             this,
             this.watch,
-            []
+            [],
         );
       }
 
@@ -639,7 +636,7 @@ export default class ViewAbility implements IViewAbility {
         /**
          * Определение видимости баннера
          */
-        let numVisibility = ViewAbility.checkVisibility(this.domElement);
+        const numVisibility = ViewAbility.checkVisibility(this.domElement);
         /**
          * Если видимость больше требуемой
          */
@@ -687,7 +684,7 @@ export default class ViewAbility implements IViewAbility {
     } else if (this.ID) {
       this.domElement = document.getElementById(this.ID);
     }
-  };
+  }
 }
 /**
  * Export ViewAbility

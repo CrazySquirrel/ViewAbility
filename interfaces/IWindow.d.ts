@@ -13,10 +13,10 @@ interface IWindow {
     innerWidth: number;
     pageXOffset: number;
     pageYOffset: number;
-    addEventListener: Function;
-    attachEvent: Function;
-    getComputedStyle: Function;
-    onerror: Function;
+    addEventListener: any;
+    attachEvent: any;
+    getComputedStyle: any;
+    onerror: any;
     ViewAbility: IViewAbility;
 }
 export default IWindow;

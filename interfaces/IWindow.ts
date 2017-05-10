@@ -7,27 +7,27 @@ import IViewAbility from "./IViewAbility";
  * The storage interface
  */
 interface IWindow {
-    console: any;
-    document: any;
+  console: any;
+  document: any;
 
-    eventListenerAdded: boolean;
+  eventListenerAdded: boolean;
 
-    innerHeight: number;
-    innerWidth: number;
-    pageXOffset: number;
-    pageYOffset: number;
+  innerHeight: number;
+  innerWidth: number;
+  pageXOffset: number;
+  pageYOffset: number;
 
-    addEventListener: Function;
-    attachEvent: Function;
-    getComputedStyle: Function;
-    onerror: Function;
+  addEventListener: any;
+  attachEvent: any;
+  getComputedStyle: any;
+  onerror: any;
 
-    ViewAbility: IViewAbility;
+  ViewAbility: IViewAbility;
 }
 /**
  * Declare window interface
  */
-declare var window: IWindow;
+declare let window: IWindow;
 /**
  * Export the window interface
  */

@@ -3,7 +3,6 @@
 declare let describe: any;
 declare let it: any;
 declare let expect: any;
-declare let require: any;
 
 import ViewAbility from "../lib/ViewAbility";
 
@@ -12,28 +11,28 @@ describe("ViewAbility", () => {
   it("ViewAbility", (done) => {
     expect(typeof(ViewAbility)).toEqual("function");
 
-    let div1 = window.document.createElement("div");
+    const div1 = window.document.createElement("div");
     div1.id = "div1";
     div1.style.width = "100px";
     div1.style.height = "100px";
 
-    let div2 = window.document.createElement("div");
+    const div2 = window.document.createElement("div");
     div2.id = "div2";
     div2.style.width = "100px";
     div2.style.height = "100px";
     window.document.body.appendChild(div2);
 
-    let div3 = window.document.createElement("div");
+    const div3 = window.document.createElement("div");
     div3.id = "div3";
     div3.style.width = "100px";
     div3.style.height = "100px";
 
-    let iframe = window.document.createElement("iframe");
+    const iframe = window.document.createElement("iframe");
     iframe.src = "javascript:;";
     window.document.body.appendChild(iframe);
     iframe.contentWindow.document.body.appendChild(div3);
 
-    let paramsValues = [
+    const paramsValues = [
       undefined,
       null,
       false,
@@ -62,17 +61,23 @@ describe("ViewAbility", () => {
       },
     ];
 
-    let dataSet = [];
+    const dataSet = [];
 
-    for (let x1 of paramsValues) {
-      for (let x2 of paramsValues) {
-        for (let x3 of paramsValues) {
+    for (let i1 = 0; i1 < paramsValues.length; i1++) {
+      const x1 = paramsValues[i1];
+
+      for (let i2 = 0; i2 < paramsValues.length; i2++) {
+        const x2 = paramsValues[i2];
+
+        for (let i3 = 0; i3 < paramsValues.length; i3++) {
+          const x3 = paramsValues[i3];
+
           if (
               [x2, x3].indexOf(x1) === -1 &&
               [x1, x3].indexOf(x2) === -1 &&
               [x1, x2].indexOf(x3) === -1
           ) {
-            let cond = (
+            const cond = (
                 (
                     x1 === "div4" ||
                     x1 === div2 ||
@@ -96,8 +101,10 @@ describe("ViewAbility", () => {
       }
     }
 
-    for (let set of dataSet) {
-      let result = new ViewAbility(set.params[0], set.params[1], set.params[2]);
+    for (let j = 0; j < dataSet.length; j++) {
+      const set = dataSet[j];
+
+      const result = new ViewAbility(set.params[0], set.params[1], set.params[2]);
 
       expect(typeof result).toEqual("object");
 
@@ -131,7 +138,7 @@ describe("ViewAbility", () => {
       }
     }
 
-    let div4 = window.document.createElement("div");
+    const div4 = window.document.createElement("div");
     div4.id = "div4";
     div4.style.width = "100px";
     div4.style.height = "100px";
@@ -145,7 +152,7 @@ describe("ViewAbility", () => {
 
           done();
         },
-        3000
+        3000,
     );
   });
 });
