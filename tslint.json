@@ -13,6 +13,7 @@
     "ordered-imports": false,
     "object-literal-sort-keys": false,
     "no-empty": false,
-    "prefer-for-of": false
+    "prefer-for-of": false,
+    "no-submodule-imports": false
   }
 }

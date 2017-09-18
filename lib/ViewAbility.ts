@@ -3,6 +3,7 @@
  * Import interfaces
  */
 import IWindow from "../interfaces/IWindow";
+
 /**
  * Declare window interface
  */
@@ -18,10 +19,9 @@ import IViewAbility from "../interfaces/IViewAbility";
  * Add submodules
  */
 import AnimationFrame from "AnimationFrame/lib/AnimationFrame";
-import UtilsDocument from "Utils/lib/UtilsDocument";
 import UtilsDOM from "Utils/lib/UtilsDOM";
+import UtilsDOMVisibility from "Utils/lib/UtilsDOMVisibility";
 import UtilsMain from "Utils/lib/UtilsMain";
-import UtilsWindow from "Utils/lib/UtilsWindow";
 
 /**
  * @class
@@ -56,98 +56,173 @@ import UtilsWindow from "Utils/lib/UtilsWindow";
  */
 export default class ViewAbility implements IViewAbility {
 
-  public static numDocumentWidth: number|boolean;
-  public static numDocumentHeight: number|boolean;
-  public static numWindowWidth: number|boolean;
-  public static numWindowHeight: number|boolean;
-  public static arrDomStyle: any = {};
+  /**
+   * @deprecated ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead
+   */
+  public static get numDocumentWidth() {
+    UtilsMain.warn("ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead");
+    return ViewAbility._numDocumentWidth;
+  }
+
+  /**
+   * @deprecated ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead
+   */
+  public static set numDocumentWidth(v) {
+    UtilsMain.warn("ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead");
+    ViewAbility._numDocumentWidth = v;
+  }
+
+  /**
+   * @deprecated ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead
+   */
+  public static get numDocumentHeight() {
+    UtilsMain.warn("ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead");
+    return ViewAbility._numDocumentHeight;
+  }
+
+  /**
+   * @deprecated ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead
+   */
+  public static set numDocumentHeight(v) {
+    UtilsMain.warn("ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead");
+    ViewAbility._numDocumentHeight = v;
+  }
+
+  /**
+   * @deprecated ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead
+   */
+  public static get numWindowWidth() {
+    UtilsMain.warn("ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead");
+    return ViewAbility._numWindowWidth;
+  }
+
+  /**
+   * @deprecated ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead
+   */
+  public static set numWindowWidth(v) {
+    UtilsMain.warn("ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead");
+    ViewAbility._numWindowWidth = v;
+  }
+
+  /**
+   * @deprecated ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead
+   */
+  public static get numWindowHeight() {
+    UtilsMain.warn("ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead");
+    return ViewAbility._numWindowHeight;
+  }
+
+  /**
+   * @deprecated ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead
+   */
+  public static set numWindowHeight(v) {
+    UtilsMain.warn("ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead");
+    ViewAbility._numWindowHeight = v;
+  }
+
+  /**
+   * @deprecated ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead
+   */
+  public static get arrDomStyle() {
+    UtilsMain.warn("ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead");
+    return ViewAbility._arrDomStyle;
+  }
+
+  /**
+   * @deprecated ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead
+   */
+  public static set arrDomStyle(v) {
+    UtilsMain.warn("ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead");
+    ViewAbility._arrDomStyle = v;
+  }
 
   /**
    * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
+   *
+   * @deprecated ViewAbility.resizeEvent was deprecated, please use UtilsDOMVisibility.resizeEvent instead
    */
   public static resizeEvent(): void {
-    ViewAbility.numDocumentWidth = false;
-    ViewAbility.numDocumentHeight = false;
-    ViewAbility.numWindowWidth = false;
-    ViewAbility.numWindowHeight = false;
-    ViewAbility.arrDomStyle = {};
+    UtilsMain.warn("ViewAbility.resizeEvent was deprecated, please use UtilsDOMVisibility.resizeEvent instead");
+    return UtilsDOMVisibility.resizeEvent();
   }
 
   /**
    * Метод для генерации UID
+   *
+   * @deprecated ViewAbility.getID was deprecated, please use UtilsDOMVisibility.getID instead
+   *
    * @returns {string}
    */
   public static getID(): string {
-    return "v_" + (Date.now()) + "_" + (~~(Math.random() * 1e6));
+    UtilsMain.warn("ViewAbility.getID was deprecated, please use UtilsDOMVisibility.getID instead");
+    return UtilsDOMVisibility.getID();
   }
 
   /**
    * Расчет стилей элемента
+   *
+   * @deprecated ViewAbility.getComputedStyle was deprecated, please use UtilsDOMVisibility.getComputedStyle instead
+   *
    * @param domNode
    * @returns {CSSStyleDeclaration}
    */
   public static getComputedStyle(domNode: any): CSSStyleDeclaration {
-    if (
-        !domNode.viewability || !ViewAbility.arrDomStyle[domNode.viewability]
-    ) {
-      if (!domNode.viewability) {
-        domNode.viewability = this.getID();
-      }
-      ViewAbility.arrDomStyle[domNode.viewability] = window.getComputedStyle(domNode);
-    }
-    return ViewAbility.arrDomStyle[domNode.viewability];
+    UtilsMain.warn("ViewAbility.getComputedStyle was deprecated, please use UtilsDOMVisibility.getComputedStyle instead");
+    return UtilsDOMVisibility.getComputedStyle(domNode);
   }
 
   /**
    * Определение высоты окна
    *
+   * @deprecated ViewAbility.getWindowHeight was deprecated, please use UtilsDOMVisibility.getWindowHeight instead
+   *
    * @returns {number} - Высота окна
    */
   public static getWindowHeight(): number | boolean {
-    if (!ViewAbility.numWindowHeight) {
-      ViewAbility.numWindowHeight = UtilsWindow.getHeight();
-    }
-    return ViewAbility.numWindowHeight || 0;
+    UtilsMain.warn("ViewAbility.getWindowHeight was deprecated, please use UtilsDOMVisibility.getWindowHeight instead");
+    return UtilsDOMVisibility.getWindowHeight();
   }
 
   /**
    * Определение высоты документа
    *
+   * @deprecated ViewAbility.getDocumentHeight was deprecated, please use UtilsDOMVisibility.getDocumentHeight instead
+   *
    * @returns {number} - Высота документа
    */
   public static getDocumentHeight(): number | boolean {
-    if (!ViewAbility.numDocumentHeight) {
-      ViewAbility.numDocumentHeight = UtilsDocument.getHeight();
-    }
-    return ViewAbility.numDocumentHeight || 0;
+    UtilsMain.warn("ViewAbility.getDocumentHeight was deprecated, please use UtilsDOMVisibility.getDocumentHeight instead");
+    return UtilsDOMVisibility.getDocumentHeight();
   }
 
   /**
    * Определение ширины окна
    *
+   * @deprecated ViewAbility.getWindowWidth was deprecated, please use UtilsDOMVisibility.getWindowWidth instead
+   *
    * @returns {number} - Ширина окна
    */
   public static getWindowWidth(): number | boolean {
-    if (!ViewAbility.numWindowWidth) {
-      ViewAbility.numWindowWidth = UtilsWindow.getWidth();
-    }
-    return ViewAbility.numWindowWidth || 0;
+    UtilsMain.warn("ViewAbility.getWindowWidth was deprecated, please use UtilsDOMVisibility.getWindowWidth instead");
+    return UtilsDOMVisibility.getWindowWidth();
   }
 
   /**
    * Определение ширины документа
    *
+   * @deprecated ViewAbility.getDocumentWidth was deprecated, please use UtilsDOMVisibility.getDocumentWidth instead
+   *
    * @returns {number} - Ширина документа
    */
   public static getDocumentWidth(): number | boolean {
-    if (!ViewAbility.numDocumentWidth) {
-      ViewAbility.numDocumentWidth = UtilsDocument.getWidth();
-    }
-    return ViewAbility.numDocumentWidth || 0;
+    UtilsMain.warn("ViewAbility.getDocumentWidth was deprecated, please use UtilsDOMVisibility.getDocumentWidth instead");
+    return UtilsDOMVisibility.getDocumentWidth();
   }
 
   /**
    * Определение положени и размеров элемента
+   *
+   * @deprecated ViewAbility.getBoundingClientRect was deprecated, please use UtilsDOM.getBoundingClientRect instead
    *
    * @param domNode {Object} - DOM элемент
    * @returns {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
@@ -161,11 +236,14 @@ export default class ViewAbility implements IViewAbility {
     top: number,
     width: number,
   } {
+    UtilsMain.warn("ViewAbility.getBoundingClientRect was deprecated, please use UtilsDOM.getBoundingClientRect instead");
     return UtilsDOM.getBoundingClientRect(domNode);
   }
 
   /**
    * Метод для определения процента видимой части баннера на экране пользователя
+   *
+   * @deprecated ViewAbility.calcVisibility was deprecated, please use UtilsDOMVisibility.calcVisibility instead
    *
    * @param objSizes {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
    * Массив с параметрами размеров и положения
@@ -179,81 +257,14 @@ export default class ViewAbility implements IViewAbility {
     width: number,
     height: number,
   }): number {
-    /**
-     * Определяем высоту окна
-     * @type {number}
-     */
-    const _numWindowHeight = ViewAbility.getWindowHeight();
-    const numWindowHeight = typeof _numWindowHeight === "number" ? _numWindowHeight : 0;
-    /**
-     * Определяем верхнюю и нижнюю видимые границы элемента
-     */
-    const numElementScrollTopFrom = objSizes.top < 0 ? 0 : objSizes.top;
-    const numElementScrollTopTo = objSizes.bottom > numWindowHeight ? numWindowHeight : objSizes.bottom;
-    /**
-     * Определяем видимую и максимально возможную видимую области элемента по высоте
-     * @type {number}
-     */
-    const numElementViewHeight = numElementScrollTopTo - numElementScrollTopFrom;
-    const numElementMaxViewHeight = objSizes.height < numWindowHeight ? objSizes.height : numWindowHeight;
-    /**
-     * Вычисляем процент видимой части по высоте
-     * @type {number}
-     */
-    let numElementViewHeightPath = numElementViewHeight / numElementMaxViewHeight;
-    /**
-     * Обрезаем значение видимости в диапазоне от 0 до 1
-     * @type {number}
-     */
-    numElementViewHeightPath = numElementViewHeightPath < 0 ? 0 : numElementViewHeightPath;
-    numElementViewHeightPath = numElementViewHeightPath > 1 ? 1 : numElementViewHeightPath;
-    /**
-     * Определяем ширину окна
-     * @type {number}
-     */
-    const _numWindowWidth = ViewAbility.getWindowWidth();
-    const numWindowWidth = typeof _numWindowWidth === "number" ? _numWindowWidth : 0;
-    /**
-     * Определяем левую и правую видимые границы элемента
-     */
-    const numElementScrollLeftFrom = objSizes.left < 0 ? 0 : objSizes.left;
-    const numElementScrollLeftTo = objSizes.right > numWindowWidth ? numWindowWidth : objSizes.right;
-    /**
-     * Определяем видимую и максимально возможную видимую области элемента по ширине
-     * @type {number}
-     */
-    const numElementViewWidth = numElementScrollLeftTo - numElementScrollLeftFrom;
-    const numElementMaxViewWidth = objSizes.width < numWindowWidth ? objSizes.width : numWindowWidth;
-    /**
-     * Вычисляем процент видимой части по ширине
-     * @type {number}
-     */
-    let numElementViewWidthPath = numElementViewWidth / numElementMaxViewWidth;
-    /**
-     * Обрезаем значение видимости в диапазоне от 0 до 1
-     * @type {number}
-     */
-    numElementViewWidthPath = numElementViewWidthPath < 0 ? 0 : numElementViewWidthPath;
-    numElementViewWidthPath = numElementViewWidthPath > 1 ? 1 : numElementViewWidthPath;
-    /**
-     * Вычисляем процент видимой пощади
-     * @type {number}
-     */
-    let numElementViewPath = numElementViewHeightPath * numElementViewWidthPath;
-    /**
-     * Обрезаем значение видимости в диапазоне от 0 до 1
-     * @type {number}
-     */
-    numElementViewPath = numElementViewPath < 0 ? 0 : numElementViewPath;
-    numElementViewPath = numElementViewPath > 1 ? 1 : numElementViewPath;
-    /**
-     * Возвращаем процент видимой площади в диапазоне от 0 до 1
-     */
-    return numElementViewPath;
+    UtilsMain.warn("ViewAbility.calcVisibility was deprecated, please use UtilsDOMVisibility.calcVisibility instead");
+    return UtilsDOMVisibility.calcVisibility(objSizes);
   }
 
   /**
    * * Определение видимости элемента вообще
+   *
+   * @deprecated ViewAbility.isVisible was deprecated, please use UtilsDOMVisibility.isVisible instead
    *
    * @param domNode {Object} - Элемент DOM дерева
    * @param booElement {boolean} - Если это сам баннер, а не родитель
@@ -265,175 +276,41 @@ export default class ViewAbility implements IViewAbility {
                           booElement: boolean,
                           numDocumentWidth: number,
                           numDocumentHeight: number): boolean {
-    /**
-     * TODO: не учитывать родителей если position fixed
-     */
-    /**
-     * Устанавливаем флаг видимости и вычисляем размеры элемента
-     * @type {boolean}
-     */
-    let booVisible = !!UtilsDOM.getDOMNode(domNode);
-    /**
-     * Check if element still visible
-     */
-    if (booVisible) {
-      const objSizes = ViewAbility.getBoundingClientRect(domNode);
-      /**
-       * Если у элемента нет ширины или высоты то он или скрыт или у него нет размеров
-       */
-      if (
-          !(objSizes.width && objSizes.height) &&
-          (booElement || domNode.style.overflow !== "")
-      ) {
-        booVisible = false;
-      } else if (
-          booElement &&
-          (
-              objSizes.bottom < 0 ||
-              objSizes.right < 0 ||
-              objSizes.left > numDocumentWidth ||
-              objSizes.top > numDocumentHeight
-          )
-      ) {
-        booVisible = false;
-      } else if (!!window.getComputedStyle) {
-        /**
-         * Check dom node existens
-         */
-        if (domNode) {
-          /**
-           * Вычисляем стили элемента
-           * @type {CSSStyleDeclaration}
-           */
-          const objStyle = ViewAbility.getComputedStyle(domNode);
-          /**
-           * Если элемент имеет нулевую прозрачность или скрыт или не имеет отображения
-           */
-          if (
-              objStyle.opacity === "0" ||
-              objStyle.display === "none" ||
-              objStyle.visibility === "hidden"
-          ) {
-            booVisible = false;
-          }
-        } else {
-          booVisible = false;
-        }
-      }
-    }
-    /**
-     * Возвращаем флаг видимости
-     */
-    return booVisible;
+    UtilsMain.warn("ViewAbility.isVisible was deprecated, please use UtilsDOMVisibility.isVisible instead");
+    return UtilsDOMVisibility.isVisible(domNode, booElement, numDocumentWidth, numDocumentHeight);
   }
 
   /**
    * Метод определения видимости баннера вообще
    *
+   * @deprecated ViewAbility.checkTotalVisibility was deprecated, please use UtilsDOMVisibility.checkTotalVisibility instead
+   *
    * @param domBanner {Object} - Элемент DOM дерева
    * @returns {number} - Коэффициент видимости элемента от 0 до 1
    */
   public static checkTotalVisibility(domBanner: HTMLElement): number {
-    /**
-     * Устанавливаем флаг видимости элемента
-     * Записываем элемент во временную переменную дял перебора по родителям
-     * Устанавливаем флаг соответствия элемента исходному
-     * @type {boolean}
-     */
-    let booVisible = true;
-    let domNode: any = domBanner;
-    let booElement = true;
-    const _numDocumentWidth = ViewAbility.getDocumentWidth();
-    const numDocumentWidth = typeof _numDocumentWidth === "number" ? _numDocumentWidth : 0;
-    const _numDocumentHeight = ViewAbility.getDocumentHeight();
-    const numDocumentHeight = typeof _numDocumentHeight === "number" ? _numDocumentHeight : 0;
-    /**
-     * Перебираем от элемента до родителей, пока текущей элемент не равен body
-     */
-    while (domNode && domNode !== document.body) {
-      /**
-       * Если элемент не виден, то устанавливаем флаг и выходим из перебора
-       */
-      if (!ViewAbility.isVisible(domNode, booElement, numDocumentWidth, numDocumentHeight)) {
-        booVisible = false;
-        break;
-      }
-      if (domNode.style.position === "fixed") {
-        break;
-      }
-      /**
-       * Записываем во временную переменную родительский элемент
-       * @type {domElement}
-       */
-      domNode = domNode.parentNode;
-      /**
-       * Сбрасываем флаг принадлежности к исходному элементу
-       * @type {boolean}
-       */
-      booElement = false;
-    }
-    /**
-     * Объевляем переменную для определения процента видимости элемента
-     * @type {number}
-     */
-    let numVisibility = 0;
-    /**
-     * Если элемент вообще виден, то высчитываем процент его видимости, если нет, то видимость нулевая
-     */
-    if (booVisible) {
-      /**
-       * Вычисляем стили элемента
-       * @type {number}
-       */
-      let opacity: any = 1;
-      /**
-       * Check dom element existens
-       */
-      if (domBanner) {
-        if (!!window.getComputedStyle) {
-          const objStyle = ViewAbility.getComputedStyle(domBanner);
-          opacity = objStyle.opacity;
-        }
-      } else {
-        opacity = 0;
-      }
-      /**
-       * Рассчитываем процент видимости элемента
-       * @type {number}
-       */
-      numVisibility = opacity;
-    }
-    /**
-     * Возвращаем процент видимости
-     */
-    return numVisibility;
+    UtilsMain.warn("ViewAbility.checkTotalVisibility was deprecated, please use UtilsDOMVisibility.checkTotalVisibility instead");
+    return UtilsDOMVisibility.checkTotalVisibility(domBanner);
   }
 
   /**
    * Метод определения видимости баннера
    *
+   * @deprecated ViewAbility.checkVisibility was deprecated, please use UtilsDOMVisibility.checkVisibility instead
+   *
    * @param domBanner {Object} - Элемент DOM дерева
    * @returns {number} - Коэффициент видимости элемента от 0 до 1
    */
   public static checkVisibility(domBanner: HTMLElement): number {
-    let numVisibility = ViewAbility.checkTotalVisibility(domBanner);
-    if (numVisibility) {
-      /**
-       * Определяем положение и размеры элемента
-       * @type {Object}
-       */
-      const objSizes = ViewAbility.getBoundingClientRect(domBanner);
-      /**
-       * Рассчитываем процент видимости элемента
-       * @type {number}
-       */
-      numVisibility = ViewAbility.calcVisibility(objSizes) * numVisibility;
-    }
-    /**
-     * Возвращаем процент видимости
-     */
-    return numVisibility;
+    UtilsMain.warn("ViewAbility.checkVisibility was deprecated, please use UtilsDOMVisibility.checkVisibility instead");
+    return UtilsDOMVisibility.checkVisibility(domBanner);
   }
+
+  private static _numDocumentWidth: number | boolean;
+  private static _numDocumentHeight: number | boolean;
+  private static _numWindowWidth: number | boolean;
+  private static _numWindowHeight: number | boolean;
+  private static _arrDomStyle: any = {};
 
   public ID: string;
   public domElement: any;
@@ -465,7 +342,7 @@ export default class ViewAbility implements IViewAbility {
         domElement.parentElement &&
         domElement.parentElement.nodeName !== "HTML"
     ) {
-      domElement.id = this.ID = domElement.id || ViewAbility.getID();
+      domElement.id = this.ID = domElement.id || UtilsDOMVisibility.getID();
     } else if (
         domElement &&
         typeof domElement === "string" &&
@@ -548,28 +425,6 @@ export default class ViewAbility implements IViewAbility {
         typeof funCallBack === "function"
     ) {
       /**
-       * Подписки на события окна
-       */
-      if (window.addEventListener) {
-        window.addEventListener("resize", ViewAbility.resizeEvent);
-        window.addEventListener("orientationchange", ViewAbility.resizeEvent);
-      } else if (window.attachEvent) {
-        window.attachEvent("onresize", ViewAbility.resizeEvent);
-      }
-      /**
-       * Хак для ручного сброса ресайзного кеша раз в секкунду, на всякий случай
-       */
-      setInterval(
-          () => {
-            ViewAbility.resizeEvent();
-          },
-          1000,
-      );
-      /**
-       * Ручной снос кеша для переинициализации переменных кеша
-       */
-      ViewAbility.resizeEvent();
-      /**
        * Задаем параметры и начинаем отслеживать
        */
       this.domElement = domElement;
@@ -636,7 +491,7 @@ export default class ViewAbility implements IViewAbility {
         /**
          * Определение видимости баннера
          */
-        const numVisibility = ViewAbility.checkVisibility(this.domElement);
+        const numVisibility = UtilsDOMVisibility.checkVisibility(this.domElement);
         /**
          * Если видимость больше требуемой
          */

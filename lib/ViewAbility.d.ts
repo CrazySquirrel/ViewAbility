@@ -34,22 +34,60 @@ import IViewAbility from "../interfaces/IViewAbility";
  * часть банера определенное время
  */
 export default class ViewAbility implements IViewAbility {
+    /**
+     * @deprecated ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead
+     */
+    /**
+     * @deprecated ViewAbility.numDocumentWidth was deprecated, please use UtilsDOMVisibility.numDocumentWidth instead
+     */
     static numDocumentWidth: number | boolean;
+    /**
+     * @deprecated ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead
+     */
+    /**
+     * @deprecated ViewAbility.numDocumentHeight was deprecated, please use UtilsDOMVisibility.numDocumentHeight instead
+     */
     static numDocumentHeight: number | boolean;
+    /**
+     * @deprecated ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead
+     */
+    /**
+     * @deprecated ViewAbility.numWindowWidth was deprecated, please use UtilsDOMVisibility.numWindowWidth instead
+     */
     static numWindowWidth: number | boolean;
+    /**
+     * @deprecated ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead
+     */
+    /**
+     * @deprecated ViewAbility.numWindowHeight was deprecated, please use UtilsDOMVisibility.numWindowHeight instead
+     */
     static numWindowHeight: number | boolean;
+    /**
+     * @deprecated ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead
+     */
+    /**
+     * @deprecated ViewAbility.arrDomStyle was deprecated, please use UtilsDOMVisibility.arrDomStyle instead
+     */
     static arrDomStyle: any;
     /**
      * Событие ресайза для сброса временных кешев размеров окна, документа и высчитанных стилей элементов
+     *
+     * @deprecated ViewAbility.resizeEvent was deprecated, please use UtilsDOMVisibility.resizeEvent instead
      */
     static resizeEvent(): void;
     /**
      * Метод для генерации UID
+     *
+     * @deprecated ViewAbility.getID was deprecated, please use UtilsDOMVisibility.getID instead
+     *
      * @returns {string}
      */
     static getID(): string;
     /**
      * Расчет стилей элемента
+     *
+     * @deprecated ViewAbility.getComputedStyle was deprecated, please use UtilsDOMVisibility.getComputedStyle instead
+     *
      * @param domNode
      * @returns {CSSStyleDeclaration}
      */
@@ -57,11 +95,15 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Определение высоты окна
      *
+     * @deprecated ViewAbility.getWindowHeight was deprecated, please use UtilsDOMVisibility.getWindowHeight instead
+     *
      * @returns {number} - Высота окна
      */
     static getWindowHeight(): number | boolean;
     /**
      * Определение высоты документа
+     *
+     * @deprecated ViewAbility.getDocumentHeight was deprecated, please use UtilsDOMVisibility.getDocumentHeight instead
      *
      * @returns {number} - Высота документа
      */
@@ -69,17 +111,23 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Определение ширины окна
      *
+     * @deprecated ViewAbility.getWindowWidth was deprecated, please use UtilsDOMVisibility.getWindowWidth instead
+     *
      * @returns {number} - Ширина окна
      */
     static getWindowWidth(): number | boolean;
     /**
      * Определение ширины документа
      *
+     * @deprecated ViewAbility.getDocumentWidth was deprecated, please use UtilsDOMVisibility.getDocumentWidth instead
+     *
      * @returns {number} - Ширина документа
      */
     static getDocumentWidth(): number | boolean;
     /**
      * Определение положени и размеров элемента
+     *
+     * @deprecated ViewAbility.getBoundingClientRect was deprecated, please use UtilsDOM.getBoundingClientRect instead
      *
      * @param domNode {Object} - DOM элемент
      * @returns {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
@@ -96,6 +144,8 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Метод для определения процента видимой части баннера на экране пользователя
      *
+     * @deprecated ViewAbility.calcVisibility was deprecated, please use UtilsDOMVisibility.calcVisibility instead
+     *
      * @param objSizes {{left: number, right: number, top: number, bottom: number, width: number, height: number}} -
      * Массив с параметрами размеров и положения
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
@@ -111,6 +161,8 @@ export default class ViewAbility implements IViewAbility {
     /**
      * * Определение видимости элемента вообще
      *
+     * @deprecated ViewAbility.isVisible was deprecated, please use UtilsDOMVisibility.isVisible instead
+     *
      * @param domNode {Object} - Элемент DOM дерева
      * @param booElement {boolean} - Если это сам баннер, а не родитель
      * @param numDocumentWidth - Ширина документа
@@ -121,6 +173,8 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Метод определения видимости баннера вообще
      *
+     * @deprecated ViewAbility.checkTotalVisibility was deprecated, please use UtilsDOMVisibility.checkTotalVisibility instead
+     *
      * @param domBanner {Object} - Элемент DOM дерева
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
      */
@@ -128,10 +182,17 @@ export default class ViewAbility implements IViewAbility {
     /**
      * Метод определения видимости баннера
      *
+     * @deprecated ViewAbility.checkVisibility was deprecated, please use UtilsDOMVisibility.checkVisibility instead
+     *
      * @param domBanner {Object} - Элемент DOM дерева
      * @returns {number} - Коэффициент видимости элемента от 0 до 1
      */
     static checkVisibility(domBanner: HTMLElement): number;
+    private static _numDocumentWidth;
+    private static _numDocumentHeight;
+    private static _numWindowWidth;
+    private static _numWindowHeight;
+    private static _arrDomStyle;
     ID: string;
     domElement: any;
     objSetting: any;

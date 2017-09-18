@@ -4,8 +4,6 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 
 const MODE = NODE_ENV.split(":")[0];
 
-const MODE_2 = NODE_ENV.split(":")[1];
-
 const StringReplacePlugin = require("string-replace-webpack-plugin");
 
 const WebpackNotifierPlugin = require("webpack-notifier");
