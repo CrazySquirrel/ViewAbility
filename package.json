@@ -1,6 +1,6 @@
 {
   "name": "ViewAbility",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Class to determine the visibility of the block.",
   "keywords": [
     "TypeScript",
